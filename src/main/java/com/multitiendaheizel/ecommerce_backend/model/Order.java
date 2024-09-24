@@ -1,8 +1,14 @@
 package com.multitiendaheizel.ecommerce_backend.model;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
+@Entity
+@Table(name="orders")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private  String number;
     private Date dateCreate;
@@ -10,8 +16,15 @@ public class Order {
 
     private double total;
 
+
+    @ManyToOne
+    private User user;
+
     public Order() {
     }
+
+    @OneToOne(mappedBy = "order")
+    private OrderDetail detail;
 
     public Order(Integer id, String number, Date dateCreate, Date dateReceive, double total) {
         this.id = id;
@@ -63,6 +76,21 @@ public class Order {
         this.total = total;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public OrderDetail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(OrderDetail detail) {
+        this.detail = detail;
+    }
 
     @Override
     public String toString() {

@@ -1,6 +1,32 @@
 package com.multitiendaheizel.ecommerce_backend.model;
+import jakarta.persistence.*;
 
+import java.util.List;
+
+@Entity
+@Table(name="users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Integer id;
+    private String name;
+    private String username;
+    private String email;
+    private String direction;
+    private String phone;
+    private String type;
+    private String password;
+
+    @OneToMany(mappedBy = "user")
+    private java.util.List<Product> products;
+
+    @OneToMany(mappedBy = "user")
+    private java.util.List<Order> orders;
+
+    public Integer getId() {
+        return id;
+    }
     public User(Integer id, String name, String username, String email, String direction, String phone, String type, String password) {
         this.id = id;
         this.name = name;
@@ -12,7 +38,9 @@ public class User {
         this.password = password;
     }
 
+
     public User() {
+
     }
 
     @Override
@@ -29,23 +57,7 @@ public class User {
                 '}';
     }
 
-    private Integer id;
 
-    private String name;
-    private String username;
-
-    private String email;
-
-    private String direction;
-    private String phone;
-
-    private String type;
-
-    private String password;
-
-    public Integer getId() {
-        return id;
-    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -105,5 +117,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

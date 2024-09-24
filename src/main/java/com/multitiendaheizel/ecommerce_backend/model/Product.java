@@ -1,6 +1,14 @@
 package com.multitiendaheizel.ecommerce_backend.model;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name= "Products")
 public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String description;
@@ -8,17 +16,27 @@ public class Product {
     private double price;
     private int amount;
 
-    public Product() {
-    }
+    @ManyToOne
+    private User user;
 
-    public Product(Integer id, String name, String description, String image, double price, int amount) {
+
+    public Product(Integer id, String name, String description, String image, double price, int amount, User user) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
         this.price = price;
         this.amount = amount;
+        this.user = user;
     }
+
+
+
+
+    public Product() {
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -66,6 +84,14 @@ public class Product {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
